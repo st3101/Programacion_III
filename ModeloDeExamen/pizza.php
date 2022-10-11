@@ -1,108 +1,191 @@
 <?php
+
 class Pizza
-{   
-    private $_sabor;
-    private $_precio;
-    private $_tipo;
-    private $_cantidad;
+{
+    public $_id;
+    public $_sabor;
+    public $_precio;
+    public $_tipo;
+    public $_cantidad;
 
-    public function __construct($sabor,$precio,$tipo,$cantidad)
+
+    public function __construct($id,$sabor,$precio,$tipo,$cantidad)
     {
-        $this->_sabor = $sabor;
-        $this->_precio = $precio;
-        $this->_tipo = $tipo;
-        $this->_cantidad = $cantidad;       
+        $this->setId($id);
+        $this->setSabor($sabor);
+        $this->setPrecio($precio);
+        $this->setTipo($tipo);
+        $this->setCantidad($cantidad);
+        
     }
-      
-    public static function archivoInfo($pizza)
+
+    #region setters
+    public function setId($value)
     {
-        return "$pizza->_sabor,$pizza->_precio,$pizza->_tipo,$pizza->_cantidad";
+        $this->_id = $value; 
     }
 
-    public static function guardarUnaPizzaJson($pizza)
+    public function setSabor($value)
     {
-        $retorno = false;
-        $archivo = fopen("pizzas.json", "a");
+        $this->_sabor = $value;
+    }
 
-        if (is_a($pizza, "pizza"))
-        {    
-           $datos=json_encode(get_object_vars($pizza));
-           
-           if($datos != null)
-           {
-            fwrite($archivo, $datos);  
-            $retorno = true;  
-           }                
+    public function setPrecio($value)
+    {
+        $this->_precio = $value;
+    }
+
+    public function setTipo($value)
+    {
+        $this->_tipo = $value;
+    }
+
+    public function setCantidad($value)
+    {
+        $this->_cantidad = $value;
+    }
+
+    #endregion
+
+    #region getters
+    public function getId()
+    {
+        return $this->_id;
+    }
+    public function getSabor()
+    {
+        return $this->_sabor;      
+    }
+
+    public function getPrecio()
+    {
+        return $this->_precio;      
+    }
+    
+    public function getTipo()
+    {
+        return $this->_tipo;    
+    }    
+
+    public function getCantidad()
+    {
+        return $this->_cantidad;
+    }
+
+    #endregion
+
+    #region informar
+
+    public static function mostrarUnaPizza($item)
+    {
+        return $item->_id ." ". $item->_sabor . " " . $item->_precio ." ". $item->_tipo ." ". $item->_cantidad ."\n";
+    }
+
+    public static function mostrarArray($array)
+    {
+        $informacion = "";
+
+        for ($i=0; $i < count($array); $i++) 
+        { 
+            $informacion .= Pizza::mostrarUnaPizza($array[$i]);
         }
-        fclose($archivo);
-
-        return $retorno;
+        return $informacion;
     }
-
-    public static function guardarArrayPizzasJson($arrayPizzas)
+    #endregion
+    
+    #region ABM
+    public static function add($array,$id,$sabor,$precio,$tipo,$cantidad)
     {
-        $retorno = false;
 
-        foreach($arrayPizzas as $item)       
+        if($id != null && $sabor != null && $tipo != null && $precio != null && $cantidad != null)
         {
-            $retorno = false;
+            $aux = new Pizza($id,$sabor,$precio,$tipo,$cantidad);        
+            
+            $arrayActualizado = Pizza::actualizarPrecioCantidad($array,$aux);
 
-            if(pizza::GuardarUnaPizzaJson($item))
-            {               
-                $retorno = true;
-            };        
-        }
-        return $retorno;
-    }
-
-    public static function buscarPizza($arrayPizzas, $pizza)
-    {      
-            for ($i=0;$i<count($arrayPizzas);$i++)
+          
+            if($arrayActualizado != null)
             {
-                if($arrayPizzas[$i]->_sabor == $pizza->_sabor && $arrayPizzas[$i]->_tipo == $pizza->_tipo)
-                {     
-                    return $i;                   
-                }      
-            }                
-        return -1;
+                $array = $arrayActualizado;
+            }
+            else
+            {        
+                array_push($array,$aux);
+            }         
+        }  
+        return $array;
     }
 
-    public static function actualizarPrecio($arrayPizzas,$pizza)
-    {
-        $indice = Pizza::buscarPizza($arrayPizzas,$pizza);
+    #endregion   
+   
+    #region Validadores
+    public function __Equals($item) 
+     {
+        if(get_class($item) == "Pizza" && $this->getSabor() == $item->getSabor() && $this->getTipo() == $item->getTipo())
+        {
+            return true;
+        }
+        return false;
+     } 
+
+     public static function pizzaEnArray($array,$pizza)
+     {
+        if($array != null)
+        {
+            foreach($array as $item)
+            {
+                if($item->__Equals($pizza))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+     }
+
+     public static function pizzaEnArrayIndice($array,$pizza)
+     {
+        if($array != null)
+        {
+            for ($i=0; $i < count($array); $i++) 
+            { 
+                if($array[$i]->__Equals($pizza))
+                {
+                    return $i;
+                }
+            }
+        }
+        return -1;
+     }
+
+     public static function actualizarPrecioCantidad($array,$pizza)
+     {
+        $indice = Pizza::pizzaEnArrayIndice($array,$pizza);
 
         if($indice > -1)
-        {  
-            $arrayPizzas[$indice]->_precio = $pizza->_precio;
-            $arrayPizzas[$indice]->_cantidad += $pizza->_cantidad;
-
-            return $arrayPizzas;
-        }
-        array_push($arrayPizzas,$pizza);
-
-        return $arrayPizzas;
-    }
-
-    public static function agregarPizza($arrayPizzas,$sabor,$precio, $tipo, $cantidad)
-    {
-        if($sabor != null && $tipo != null && $precio != null && $cantidad != null)
         {
-            $auxPizza = new pizza($sabor,  $precio, $tipo, $cantidad);
-            $arrayPizzas = pizza::ActualizarPrecio($arrayPizzas,$auxPizza);              
-            return $arrayPizzas;         
+            $array[$indice]->setPrecio($pizza->getPrecio());
+            $array[$indice]->setCantidad($array[$indice]->getCantidad() + $pizza->getCantidad()); 
+
+            return $array;
         }
-        return $arrayPizzas;
-    }
+       return null;       
+     }
 
-    public static function mostarArrayPizzas($arrayPizzas)
-    {
-        $stringRetorno ="";
-
-        foreach($arrayPizzas as $item)
+     public static function newID($array)
+     {
+        if($array != null)
         {
-            $stringRetorno .= Pizza::archivoInfo($item)."\n";
-        }     
+            $id = count($array);
+            $id++;
+        }
+        else
+        {
+            $id = 1;
+        }
 
-        return $stringRetorno;
-    }
+        return $id;
+     }
+     #endregion
 }
+
