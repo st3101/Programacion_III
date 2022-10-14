@@ -105,7 +105,7 @@ class venta
 
         $consulta->execute();
 
-        echo $conexion->RetornarUltimoIdInsertado();
+        //echo $conexion->RetornarUltimoIdInsertado();
         
     }
 
@@ -123,8 +123,8 @@ class venta
 
             return $conexion->ReturnLastIDInserted();
     }
-
     #endregion
+
 }
 
 

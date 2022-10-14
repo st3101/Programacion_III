@@ -116,6 +116,22 @@ class Pizza
         return $array;
     }
 
+    public static function descontarCantidad($array, $pizza)
+    {
+        $indice = pizza::pizzaEnArrayIndice($array,$pizza);
+
+        if($indice > -1)
+        {
+            $cantidadPizza = $array[$indice]->getCantidad() - $pizza->getCantidad();
+
+            if($cantidadPizza > 0)
+            {
+                $array[$indice]->setCantidad($cantidadPizza);
+                return $array;
+            }
+        }
+        return $array;
+    }
     #endregion   
    
     #region Validadores
