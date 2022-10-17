@@ -16,14 +16,15 @@ class venta
     public $_pizzaTipo;
     public $_pizzaCantidad;
 
-    public function __construct($usuario,$mail,$pizza)
+    public function __construct($usuario,$mail,$pizza,$fecha)
     {
         $this->setUsuario($usuario);
         $this->setMail($mail);
         $this->setNumeroDePedido(rand(0,999));
-        $this->setFecha(Date('d,m,Y h:i:s'));
+        $this->setFecha($fecha);
         $this->setPizzaSabor($pizza->getSabor());
         $this->setPizzaTipo($pizza->getTipo());
+        $this->setPizzaCantidad($pizza->getCantidad());
     }
 
     #region setters
@@ -122,6 +123,53 @@ class venta
             echo $conexion->RetornarUltimoIdInsertado();
 
             return $conexion->ReturnLastIDInserted();
+    }
+    #endregion
+
+    #region arrays
+    static function contarVentas($array):int
+    {
+        $totalVentas = 0;
+        foreach($array as $item)
+        {
+            $totalVentas += $item->getPizaaCantidad();
+        }
+        return $totalVentas;
+    }
+    #endregion
+
+    #region informar
+
+    public static function informarArrayVentas($array):string
+    {
+        $text = "";
+        foreach($array as $item)
+        {
+            $text .= $item->getNumeroDePedido() . " " . $item->getUsuario() . " " . $item->getPizzaSabor() . " " . $item->getPizaaCantidad()." ". $item->getFecha() ."\n";
+        }
+        return $text;
+    }
+
+    public static function informarEntreFechaOrdenadoSabor($fechaInicio,$fechaFinal,$array)
+    {
+        $arrayAux = array();
+
+        if($array != null)
+        {
+            foreach($array as $item)
+            {
+                if(strtotime($item->getFecha()) >= strtotime($fechaInicio) && strtotime($item->getFecha()) <= strtotime($fechaFinal))
+                {
+                    echo"hola.\n";
+                    array_push($arrayAux,$item);
+                }
+            }
+            if($arrayAux != null)
+            {
+                usort($arrayAux,"Validadores::ordenarPorAlfabeto");    
+            }
+        }
+        return $arrayAux;
     }
     #endregion
 

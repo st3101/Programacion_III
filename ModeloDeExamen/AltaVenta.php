@@ -27,11 +27,11 @@ if(isset($_POST["usuario"]) && isset($_POST["mail"]) && isset($_POST["sabor"]) &
             $venta = new venta($_POST["usuario"],$_POST["mail"],$pizza);
             $conexion = conexion::dameUnObjetoAcceso();
             $venta->subirVenta($conexion);  
-            
+            Archivo::guardarJson("pizza.json",$arrayPizza);
         }
         else
         {
-            echo "No la suficiente cantidad de pizza";
+            echo "Error";
         }
         
         echo "\n".Pizza::mostrarArray($arrayPizza); 

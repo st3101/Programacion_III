@@ -1,25 +1,34 @@
 <?php
 
-include_once "pizza.php";
-include_once "archivo.php";
 
-/*
-$arrayPizzas = array();
-
-$arrayPizzas = Pizza::add($arrayPizzas,1,"Mussarela",50,"Molde",30);
-$arrayPizzas = Pizza::add($arrayPizzas,2,"Napolitana",85,"Piedra",20);
-
-
-$arrayPizzas = Pizza::add($arrayPizzas,3,"Mussarela",100,"Molde",100);
-
-
-Archivo::guardarJson("pizza.json",$arrayPizzas);
-
-$arraPizza2 = archivo::cargarJson("pizza.json");
-
-if($arraPizza2 != null)
+switch($_SERVER["REQUEST_METHOD"])
 {
-    echo Pizza::mostrarArray($arraPizza2);
+    case "POST":
+        switch(key($_POST))
+        {
+            case "altaVenta":
+                include "altaVenta.php";
+            break;
+
+            case "consultaPizza":
+                include "pizzaConsultar.php";
+            break;
+
+            case "consultaVentas":
+                include "consultaVentas.php";
+            break;
+        }
+    break;
+  
+    case "GET":
+
+        switch(key($_GET))
+        {
+            case "altaPizza":
+                include "pizzaCarga";
+            break;
+        }
+
 }
-*/
+
 

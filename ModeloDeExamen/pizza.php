@@ -130,7 +130,7 @@ class Pizza
                 return $array;
             }
         }
-        return $array;
+        return null;
     }
     #endregion   
    
