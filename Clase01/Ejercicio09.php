@@ -1,85 +1,41 @@
 <?php
+/* Aplicación No 9 (Carga aleatoria)
+Definir un Array de 5 elementos enteros y asignar a cada uno de ellos un número (utilizar la
+función rand). Mediante una estructura condicional, determinar si el promedio de los números
+son mayores, menores o iguales que 6. Mostrar un mensaje por pantalla informando el
+resultado. */
 
-/* Aplicación No 8 (Números en letras)
-Realizar un programa que en base al valor numérico de la variable $num, pueda mostrarse por
-pantalla, el nombre del número que tenga dentro escrito con palabras, para los números entre
-el 20 y el 60. */
+$array = array();
+$acunulador = 0;
+ 
+for ($i=0; $i < 5; $i++) {
 
-$num = "23";
-
-$StringNumero = "Numero invalido";
-$flag = 1;
-
-if($num >= 20 && $num <= 60)
-{
-    $n1 = $num[0];
-    $n2 = $num[1];
-
-    switch($n1)
-    {
-        case '2':
-            $StringNumero = "Veinte";
-            break;
-        case '3':
-            $StringNumero = "Trinta";
-        break;
-        case '4':
-            $StringNumero = "Cuarenta";
-            break;
-        case '5':
-            $StringNumero = "Cincuenta";
-        break;
-        case '6':
-            $StringNumero = "Sesenta";
-            $flag = 3;
-            break;
-        default:
-            $StringNumero = "Numero Invalido";
-            $flag = 0;
-        break;
-    }
-    
-    if($flag == true)
-    {
-        switch($n2)
-        {
-            case '1':
-                $StringNumero .= " y uno";
-                break;
-            case '2':
-                $StringNumero .= " y dos";
-                break;
-                
-            case '3':
-                $StringNumero .= " y tres";
-                break;
-                
-            case '4':
-                $StringNumero .= " y cuatro";
-                break;
-                
-            case '5':
-                $StringNumero .= " y cinco";
-                break;
-                
-            case '6':
-                $StringNumero .= " y seis";
-                break;
-                
-            case '7':
-                $StringNumero .= " y siete";
-                break;
-                
-            case '8':
-                $StringNumero .= " y ocho";
-                break;
-                
-            case '9':
-                $StringNumero .= " y nueve";
-                break;     
-        }
-    }
-    
+    $array[$i] = rand(0,10);
+    $acunulador += $array[$i];
 }
 
-echo $StringNumero ." ". $num;
+for ($i=0; $i < 5; $i++) {
+
+    echo $array[$i] . "\n";
+ }
+ 
+$promedio = $acunulador / 5;
+
+//Harcodeo promedio forsar el 6
+//$promedio = 6;
+
+if($promedio > 6)
+{
+    $text = "El promedio es mayor a 6";
+}
+else if($promedio < 6)
+{
+    $text = "El promedio es menor a 6";
+}
+else
+{
+    $text = "El promedio es 6";
+}
+
+echo "Promedio: $promedio\n";
+echo $text;

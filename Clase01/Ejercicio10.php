@@ -1,41 +1,46 @@
 <?php
-/* Aplicación No 9 (Carga aleatoria)
-Definir un Array de 5 elementos enteros y asignar a cada uno de ellos un número (utilizar la
-función rand). Mediante una estructura condicional, determinar si el promedio de los números
-son mayores, menores o iguales que 6. Mostrar un mensaje por pantalla informando el
-resultado. */
+/* Aplicación No 10 (Mostrar impares)
+Generar una aplicación que permita cargar los primeros 10 números impares en un Array.
+Luego imprimir (utilizando la estructura for) cada uno en una línea distinta (recordar que el
+salto de línea en HTML es la etiqueta <br/>). Repetir la impresión de los números utilizando
+las estructuras while y foreach. */
 
+$continue = true;
 $array = array();
-$acunulador = 0;
- 
-for ($i=0; $i < 5; $i++) {
+$i = 0;
+$j = 0;
 
-    $array[$i] = rand(0,10);
-    $acunulador += $array[$i];
-}
-
-for ($i=0; $i < 5; $i++) {
-
-    echo $array[$i] . "\n";
- }
- 
-$promedio = $acunulador / 5;
-
-//Harcodeo promedio forsar el 6
-//$promedio = 6;
-
-if($promedio > 6)
+while($continue)
 {
-    $text = "El promedio es mayor a 6";
-}
-else if($promedio < 6)
-{
-    $text = "El promedio es menor a 6";
-}
-else
-{
-    $text = "El promedio es 6";
+    if($i % 2 == 1)
+    {
+        array_push($array,$i);
+        $j++;
+
+        if($j >= 5)
+        {
+            break;
+        }
+    }
+    $i++;
 }
 
-echo "Promedio: $promedio\n";
-echo $text;
+//Imprecion For
+echo "For\n";
+for ($i=0; $i < 5; $i++) { 
+    echo $array[$i]."\n";
+}
+
+//Imprecion While
+echo "\nWhile\n";
+$j = 0;
+while ($j <= 4) {
+    echo $array[$j]."\n";
+    $j++;
+}
+
+//Imprecio Foreach
+echo "\nForeach\n";
+foreach ($array as $item) {
+    echo $item."\n";
+}
