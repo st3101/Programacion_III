@@ -31,7 +31,7 @@ switch ($operador) {
             
             break;
     default:
-        $resultado = "Operador erroneo";
+        $resultado =  "Operador erroneo";
         break;
 }
 
