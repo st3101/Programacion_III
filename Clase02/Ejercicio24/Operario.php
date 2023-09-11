@@ -7,14 +7,15 @@ class Operario
     private string $_nombre;
     private float $_salario;
 
-    public function  __construct(int $legajo, string $apellido, string $nombre)
+    public function  __construct(int $legajo, string $apellido, string $nombre, float $salario)
     {
         $this->_legajo = $legajo;
         $this->_apellido = $apellido;
         $this->_nombre = $nombre;
+        $this->_salario = $salario;
     }
 
-    public function equals(Operario $op1, Operario $op2):bool
+    public static function equals(Operario $op1, Operario $op2):bool
     {
         if($op1->_legajo == $op2->_legajo && $op1->_apellido == $op2->_apellido && $op1->_nombre == $op2->_nombre)
         {
@@ -43,14 +44,14 @@ class Operario
     {
         return $Op->mostrarStatic();
     }
-
     public function setAumentarSalario(float $aumento):void
     {
         $aumentoTotal = ($this->_salario * $aumento) / 100;
         $this->_salario = $this->_salario + $aumentoTotal;
     }
-        
 }
+
+
 
 
 
