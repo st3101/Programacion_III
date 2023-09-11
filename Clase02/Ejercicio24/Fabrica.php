@@ -1,7 +1,7 @@
 <?php 
 
-include_once "Operario.php"; 
 
+namespace a;
 class Fabrica
 {
     
@@ -20,7 +20,7 @@ class Fabrica
     {
         $retorno = false;
 
-        if($op != null &&  $this->equals($this,$op) && $this->_cantMaxOperarios <= count($this->_operarios)) 
+        if($op != null &&  $this->equals($this,$op) && $this->_cantMaxOperarios >= count($this->_operarios)) 
         {
             if(array_push($this->_operarios,$op))
             {
@@ -44,13 +44,18 @@ class Fabrica
                     break;
                 }
             }
+            if(count($fb->_operarios) == 0)
+            {
+                $retorno =  true;     
+            }
+            
         }
         return $retorno;
     }
 
     public function mostrar():string
     {
-        return "Razon Social: ".$this->_razonSocial ." - Cantidad Operarios: ".$this->_cantMaxOperarios."Operarios: ".$this->mostrarOperarios();
+        return "Razon Social: ".$this->_razonSocial ." - Cantidad Max Operarios: ".$this->_cantMaxOperarios." Operarios: ".$this->mostrarOperarios();
     }
 
     public static function mostrarCosto(Fabrica $fb):void
@@ -63,7 +68,7 @@ class Fabrica
         $text = "";
         foreach ($this->_operarios as $value) 
         {
-            $text .= $value->mostrar()."\n";
+            $text .= $value->mostrarStatic()."\n";
         }
 
         return $text;

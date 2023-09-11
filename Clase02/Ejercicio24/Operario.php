@@ -1,5 +1,6 @@
 <?php
 
+namespace a;
 class Operario
 {
     private string $_apellido;
