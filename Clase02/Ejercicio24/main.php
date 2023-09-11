@@ -7,13 +7,15 @@ include "Operario.php";
 
 $miNegocio = new Fabrica("Negocio"); 
 
-if($miNegocio->add(new Operario(123,"Leonardi","Santiago",100)))
-{
-    echo "Se agrego.\n";
-}
-else
-{
-    echo "no se agrego";
-}
+$miNegocio->add(new Operario(123,"Leonardi","Santiago",100));
+$miNegocio->add(new Operario(123,"Ruino","Marteeeen",200));
+
+
+echo $miNegocio->mostrar()."\n\n";
+
+$miNegocio->remove(new Operario(123,"Ruino","Marteeeen",200));
 
 echo $miNegocio->mostrar();
+
+
+

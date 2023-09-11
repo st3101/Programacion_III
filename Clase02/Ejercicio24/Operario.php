@@ -37,13 +37,13 @@ class Operario
         return $this->_salario;
     }
 
-    public function mostrarStatic():string
+    public function mostrar():string
     {
         return $this->getNombreApellido(). " - " . $this->_legajo . " - " . $this->getSalario();
     }
-    public static function mostrar(Operario $Op):string
+    public static function mostrarStatic(Operario $Op):string
     {
-        return $Op->mostrarStatic();
+        return $Op->mostrar();
     }
     public function setAumentarSalario(float $aumento):void
     {

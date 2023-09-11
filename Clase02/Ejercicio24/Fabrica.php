@@ -1,12 +1,10 @@
 <?php 
 
-
 namespace a;
 class Fabrica
-{
-    
+{   
     private int $_cantMaxOperarios;
-    private $_operarios = array();
+    private  $_operarios = array();
     private string $_razonSocial;
 
     private array $a;
@@ -20,7 +18,7 @@ class Fabrica
     {
         $retorno = false;
 
-        if($op != null &&  $this->equals($this,$op) && $this->_cantMaxOperarios >= count($this->_operarios)) 
+        if($op != null &&  !$this->equals($this,$op) && $this->_cantMaxOperarios >= count($this->_operarios)) 
         {
             if(array_push($this->_operarios,$op))
             {
@@ -43,12 +41,7 @@ class Fabrica
                     $retorno =  true;
                     break;
                 }
-            }
-            if(count($fb->_operarios) == 0)
-            {
-                $retorno =  true;     
-            }
-            
+            }           
         }
         return $retorno;
     }
@@ -68,15 +61,28 @@ class Fabrica
         $text = "";
         foreach ($this->_operarios as $value) 
         {
-            $text .= $value->mostrarStatic()."\n";
+            $text .= "\n".$value->mostrar();
         }
 
         return $text;
     }
 
     public function remove(Operario $op)
-    {
-
+    {      
+        $retorno = false;
+        if($op != null)
+        {
+            for ($i=0; $i < count($this->_operarios); $i++) 
+            { 
+                if(Operario::equals($this->_operarios[$i],$op))
+                {
+                    unset($this->_operarios[$i]);
+                    $retorno = true;
+                    break;
+                }
+            }
+        }
+        return $retorno;
     }
 
     private function retornarCostos():float
