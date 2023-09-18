@@ -3,11 +3,14 @@
 class FiguraGeometrica
 {
     protected string $_color; 
+    protected int  $_perimetro;
+    protected int $_superficie;
 
-
-    function __construct($_color)
+    function __construct(string $color,int $perimetro, int $superficie)
     {
-        
+        $this->setColor($color);
+        $this->_perimetro = $perimetro;
+        $this->_superficie = $superficie;
     }
 
     public function setColor(string $value)
@@ -32,6 +35,16 @@ class FiguraGeometrica
     function __toString()
     {
         return $this->getColor();
+    }
+
+    function dibujar()
+    {
+
+    }
+
+    function calcuilarDatos()
+    {
+
     }
 
 }

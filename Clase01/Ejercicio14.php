@@ -12,7 +12,6 @@ echo "Array Indexado \n";
 foreach ($arrayIndexado as $key => $value) {
     foreach ($value as $a) {
         echo $a." - ";
-        # code...
     }
 }
 echo "\n\nArray Asociativo\n";
