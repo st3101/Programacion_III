@@ -18,6 +18,6 @@ if(copy($path_origen, $path_destino))
 }
 else
 {
-    echo "la cague";
+    echo "Error";
 }
 ?>
