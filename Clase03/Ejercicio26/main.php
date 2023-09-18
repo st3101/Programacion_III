@@ -5,15 +5,14 @@ por la página) hacia otro archivo que será creado y alojado en
 ./misArchivos/yyyy_mm_dd_hh_ii_ss.txt, dónde yyyy corresponde al año en curso, mm
 al mes, dd al día, hh hora, ii minutos y ss segundos. */
 
+$file = $_FILES["idArchivo"];
 
-$path = "./misArchivos/copiado.txt";
-$path2 = "./a.txt";
-/*
+$name = date("Y_m_d_h_i_s");
 
-$file = $_FILES["a"];
- 
+$path_origen = $file["tmp_name"];
+$path_destino = "../misArchivos/".$name.".txt";
 
-if(copy($file["full_path"],$path))
+if(copy($path_origen, $path_destino))
 {
     echo "Copiado";
 }
@@ -21,7 +20,4 @@ else
 {
     echo "la cague";
 }
-*/
-
-copy("./a.txt","./misArchivos/copiado.txt");
 ?>
