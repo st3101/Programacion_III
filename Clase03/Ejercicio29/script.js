@@ -8,7 +8,6 @@ function accion()
     var selec = document.getElementById("selecColor");
 
     var body = document.getElementsByTagName("body")[0];
-    var body = document.getElementsByTagName("body")[0];
     body.style.backgroundColor = selec[indice].value;
 
 }
