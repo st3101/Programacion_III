@@ -4,10 +4,11 @@ include "../../Biblioteca/Archivo.php";
 include "./Alumno.php";
 $path = "../misArchivos/alumno.txt";
 
-$accion;
-$nombre;
-$apellido;
-$legajo;
+// $accion;
+// $nombre;
+// $apellido;
+// $legajo;
+$arrayAlumnos = Alumno::cargarAlumnos($path);
 
 if(isset($_GET["accion"]))
 {
@@ -18,12 +19,10 @@ if(isset($_GET["accion"]))
         $nombre = $_POST["nombre"];
         $apellido = $_POST["apellido"];
         $legajo = $_POST["legajo"];
+        
+        $arrayAlumnos = Alumno::agregarAlumno($arrayAlumnos,$nombre,$apellido,$legajo);
 
-        $alumno = new Alumno($nombre,$apellido,$legajo);
-
-        $formatoTexto = Alumno::mostrarUno($alumno)."\n";
-
-        if(Archivo::guardarA($formatoTexto,$path))
+        if(Alumno::guardarAlumnos($arrayAlumnos,$path))
         {
             echo "Se guardo";
         }
@@ -34,11 +33,10 @@ if(isset($_GET["accion"]))
     }
     else if($accion == "listar")
     {
-        $alumno = Archivo::cargar($path);
-
-        if($alumno != null)
+        $arrayAlumnos = Alumno::cargarAlumnos($path);
+        if($arrayAlumnos != null)
         {
-            echo $alumno;
+           echo Alumno::mostrarTodos($arrayAlumnos);
         }
     }
     else if($accion == "verificar")
@@ -76,35 +74,6 @@ if(isset($_GET["accion"]))
             }
         }
     }
-    else if($accion == "verificar")
-    {
-        
-    }
 
-    function buscarIndice($path,$legajo)
-    {
-        $retorno = 0;
-        if(isset($_POST["legajo"]))
-        {
-            $alumno = Archivo::cargar($path);
-
-            if($alumno != null)
-            {             
-                $arrayAlumno = explode("\n",$alumno);   
-
-                for ($i=0; $i < count($arrayAlumno); $i++) 
-                { 
-                    $arrayDatosAlumno = explode("-",$alumno);  
-
-                    if($legajo == $arrayDatosAlumno[0])
-                    {
-                        $retorno = $arrayDatosAlumno;
-                        break;
-                    }                
-                }              
-            }
-        }
-        return $retorno;
-    }
 }
 

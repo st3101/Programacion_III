@@ -12,6 +12,13 @@ class Alumno
         $this->setApellido($apellido);
         $this->setLegajo($legajo);
     }
+    function mostrarUno()
+    {
+        if($this != null)
+        {
+            return $this->getLegajo()."-".$this->getApellido()."-".$this->getNombre();
+        }
+    }
 
     #region Getter y Setters
     function setNombre($nombre)
@@ -49,28 +56,85 @@ class Alumno
     {
         return $this->_legajo;
     }
+    
 
     #endregion
-    static function mostrarUno($alumno)
-    {
-        if($alumno != null)
-        {
-            return $alumno->getLegajo()."-".$alumno->getApellido()."-".$alumno->getNombre();
-        }
-    }
-
-    function mostrarTodos($arrayAlumnos)
+    #region Arrays
+   static function mostrarTodos($arrayAlumnos)
     {
         $retorno = "";
         if($arrayAlumnos != null)
         {
             for ($i=0; $i < count($arrayAlumnos); $i++) 
             { 
-                $retorno .= Alumno::mostrarUno($arrayAlumnos[$i]);
+                $retorno .= $arrayAlumnos[$i]->mostrarUno()."\n";
             }
         }
         return $retorno;
     }
+    static function guardarAlumnos($arrayAlumno,$path)
+    {
+        $retorno = false;
+        if($arrayAlumno != null && $path != null)
+        {
+            $textoAlumnos = Alumno::mostrarTodos($arrayAlumno);
+            if($textoAlumnos != null)
+            {
+                if(Archivo::guardar($textoAlumnos,$path))
+                {
+                    $retorno = true;
+                }
+            }
+        }
+        return $retorno;
+    }
+    static function cargarAlumnos($path)
+    {
+        $arrayAlumnos = array();
+
+        if($path != null)
+        {
+            $textoPlano = Archivo::cargar($path);
+
+            if($textoPlano != null)
+            {
+                $arrayAlumnosString = explode("\n",$textoPlano);
+
+                $a = 1;
+
+                for ($i=0; $i < count($arrayAlumnosString)-1; $i++) 
+                { 
+                        $arrayDatos = explode("-",$arrayAlumnosString[$i]);
+                        array_push($arrayAlumnos,new Alumno($arrayDatos[2],$arrayDatos[1],$arrayDatos[0]));
+                }
+            }
+        }
+        return $arrayAlumnos;
+    }
+    static function agregarAlumno($arrayAlumnos,$nombre,$apellido,$legajo)
+    {
+        $retorno = null;
+
+        if($arrayAlumnos == null)
+        {
+            $arrayAlumnos = array();
+        }
+        if($arrayAlumnos != null && $nombre != null && $apellido != null && $legajo != null)
+        {
+            $alumno = new Alumno($nombre,$apellido,$legajo);
+
+            if($alumno != null)
+            {
+                if(array_push($arrayAlumnos,$alumno))
+                {
+                    $retorno = $arrayAlumnos;
+                }
+            }
+        }
+        return $retorno;
+    }
+
+#endregion
 }
 
 ?>
