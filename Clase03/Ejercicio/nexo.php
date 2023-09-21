@@ -1,6 +1,7 @@
 <?php
 
 include "../../Biblioteca/Archivo.php";
+include "./Alumno.php";
 $path = "../misArchivos/alumno.txt";
 
 $accion;
@@ -18,8 +19,10 @@ if(isset($_GET["accion"]))
         $apellido = $_POST["apellido"];
         $legajo = $_POST["legajo"];
 
-        $formatoTexto = $legajo."-".$apellido."-".$nombre."\n";
-    
+        $alumno = new Alumno($nombre,$apellido,$legajo);
+
+        $formatoTexto = Alumno::mostrarUno($alumno)."\n";
+
         if(Archivo::guardarA($formatoTexto,$path))
         {
             echo "Se guardo";
@@ -36,12 +39,6 @@ if(isset($_GET["accion"]))
         if($alumno != null)
         {
             echo $alumno;
-            /*
-            $arrayAlumno = explode("-",$alumno);          
-            $legajo = $arrayAlumno[0];
-            $apellido = $arrayAlumno[1];
-            $nombre = $arrayAlumno[2];
-            */
         }
     }
     else if($accion == "verificar")
@@ -104,8 +101,7 @@ if(isset($_GET["accion"]))
                         $retorno = $arrayDatosAlumno;
                         break;
                     }                
-                }
-                
+                }              
             }
         }
         return $retorno;

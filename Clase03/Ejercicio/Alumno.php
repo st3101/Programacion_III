@@ -6,7 +6,7 @@ class Alumno
     private $_apellido;
     private $_legajo;
 
-    function __contruc($nombre,$apellido,$legajo)
+    function __construct($nombre,$apellido,$legajo)
     {
         $this->setNombre($nombre);
         $this->setApellido($apellido);
@@ -30,7 +30,7 @@ class Alumno
     {
         if($apellido != null)
         {
-            $this->_apellido;
+            $this->_apellido = $apellido;
         }
     }
     function getApellido()
@@ -51,7 +51,26 @@ class Alumno
     }
 
     #endregion
+    static function mostrarUno($alumno)
+    {
+        if($alumno != null)
+        {
+            return $alumno->getLegajo()."-".$alumno->getApellido()."-".$alumno->getNombre();
+        }
+    }
 
+    function mostrarTodos($arrayAlumnos)
+    {
+        $retorno = "";
+        if($arrayAlumnos != null)
+        {
+            for ($i=0; $i < count($arrayAlumnos); $i++) 
+            { 
+                $retorno .= Alumno::mostrarUno($arrayAlumnos[$i]);
+            }
+        }
+        return $retorno;
+    }
 }
 
 ?>
