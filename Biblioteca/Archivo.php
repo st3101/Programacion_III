@@ -19,6 +19,24 @@ class Archivo
         }
         return $retorno;
     }
+    static public function guardarA(string $texto, string $path)
+    {
+        $retorno = false;
+        if($texto != null && $path != null)
+        {
+            $archivo = fopen($path, "a");
+            if($archivo != null)
+            {
+                if(fwrite($archivo,$texto))
+                {
+                    $retorno = true;
+                }
+            }
+            fclose($archivo);
+        }
+        return $retorno;
+    }
+
 
     static public function cargar($path)
     {
