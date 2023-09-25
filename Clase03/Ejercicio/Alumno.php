@@ -136,7 +136,7 @@ class Alumno
 
     static function buscarAlumno($arrayAlumnos,$legajo)
     {
-        $retorno = false;
+        $retorno = -1;
         if($arrayAlumnos != null && $legajo != null)
         {
             
@@ -144,7 +144,7 @@ class Alumno
             { 
                 if($legajo == $arrayAlumnos[$i]->getLegajo())
                 {
-                    $retorno = true;
+                    $retorno = $i;
                     break;
                 }                
             }
@@ -152,6 +152,20 @@ class Alumno
         return $retorno;
     }
 
+    static function modificarAlumno($arrayAlumno,Alumno $alumno)
+    {   
+        $retorno = false;
+        if($arrayAlumno != null && $alumno != null)
+        {
+            $indice = Alumno::buscarAlumno($arrayAlumno,$alumno->getLegajo());
+            if(-1 < $indice){
+                $arrayAlumno[$indice]->setNombre($alumno->getNombre()); 
+                $arrayAlumno[$indice]->setApellido($alumno->getApellido()); 
+                $retorno = true;
+            }
+        }
+        return $retorno;
+    }
 #endregion
 }
 
