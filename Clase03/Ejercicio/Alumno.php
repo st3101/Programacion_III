@@ -134,6 +134,24 @@ class Alumno
         return $retorno;
     }
 
+    static function buscarAlumno($arrayAlumnos,$legajo)
+    {
+        $retorno = false;
+        if($arrayAlumnos != null && $legajo != null)
+        {
+            
+            for ($i=0; $i < count($arrayAlumnos); $i++) 
+            { 
+                if($legajo == $arrayAlumnos[$i]->getLegajo())
+                {
+                    $retorno = true;
+                    break;
+                }                
+            }
+        }
+        return $retorno;
+    }
+
 #endregion
 }
 
