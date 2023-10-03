@@ -1,13 +1,13 @@
 <?php
 
 class Archivo
-{
-    static public function guardar(string $texto, string $path)
+{  
+    static public function guardar(string $texto, string $path,?string $forma = "w")
     {
         $retorno = false;
         if($texto != null && $path != null)
         {
-            $archivo = fopen($path, "w");
+            $archivo = fopen($path,$forma);
             if($archivo != null)
             {
                 if(fwrite($archivo,$texto))
@@ -19,25 +19,6 @@ class Archivo
         }
         return $retorno;
     }
-    static public function guardarA(string $texto, string $path)
-    {
-        $retorno = false;
-        if($texto != null && $path != null)
-        {
-            $archivo = fopen($path, "a");
-            if($archivo != null)
-            {
-                if(fwrite($archivo,$texto))
-                {
-                    $retorno = true;
-                }
-            }
-            fclose($archivo);
-        }
-        return $retorno;
-    }
-
-
     static public function cargar($path)
     {
         $retorno = false;
@@ -57,4 +38,13 @@ class Archivo
         }
         return $retorno;
     }
+
+    static public function crearArchivo($nombreArchivo){
+        $retorno = false;
+        if(touch($nombreArchivo)){
+            $retorno = true;
+        }
+        return $retorno;
+    }
+
 }

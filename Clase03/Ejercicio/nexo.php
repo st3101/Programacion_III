@@ -1,10 +1,15 @@
 <?php
 
+use Leonardi\Alumno;
 include "../../Biblioteca/Archivo.php";
 include "./Alumno.php";
-$path = "../misArchivos/alumno.txt";
+$path = "./archivos/alumnos.txt";
 
 $arrayAlumnos = Alumno::cargarAlumnos($path);
+
+if($arrayAlumnos == null){
+    Archivo::crearArchivo($path);
+}
 
 switch($_GET["accion"]){
     case "agregar":
@@ -37,14 +42,8 @@ switch($_GET["accion"]){
         $alumno = new Alumno($_POST["nombre"],$_POST["apellido"],$_POST["legajo"]);
         if($alumno != null){
             if(Alumno::modificarAlumno($arrayAlumnos,$alumno)){
+                Alumno::guardarAlumnos($arrayAlumnos,$path);
                 echo "Se guardo y ";
-                             
-                if(Alumno::guardarAlumnos($arrayAlumnos,$path)){
-                    echo "se guardo";
-                }
-                else{
-                    echo "no se guardo";
-                }
             }
             else{
                 echo "No se modifico";
@@ -52,6 +51,20 @@ switch($_GET["accion"]){
         }
     break;
 
+    case "borrar":
+        $mensaje = "Error";
+        $bufferArrayAlumnos = Alumno::borrarUnAlumno($arrayAlumnos,$_POST["legajo"]);
+        if($bufferArrayAlumnos != null){
+            if(Alumno::guardarAlumnos($bufferArrayAlumnos,"../misArchivos/alumno.txt")){
+                $mensaje = "Se borro y se guardo correctamente";
+            }
+        }
+        echo $mensaje;
+        break;
+    default:
+        "Error en accion";
+    break;
+    
 }
 
 

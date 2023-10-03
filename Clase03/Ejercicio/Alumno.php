@@ -1,5 +1,7 @@
 <?php
 
+namespace Leonardi;
+use Archivo;
 class Alumno
 {
     private string $_nombre;
@@ -65,10 +67,9 @@ class Alumno
         $retorno = "";
         if($arrayAlumnos != null)
         {
-            for ($i=0; $i < count($arrayAlumnos); $i++) 
-            { 
-                $retorno .= $arrayAlumnos[$i]->mostrarUno()."\n";
-            }
+                foreach ($arrayAlumnos as $item) {
+                    $retorno .= $item->mostrarUno()."\n";
+                }
         }
         return $retorno;
     }
@@ -166,7 +167,22 @@ class Alumno
         }
         return $retorno;
     }
-#endregion
+
+    static function borrarUnAlumno($arrayAlumno,$legajo)
+    {
+        $retorno = null;
+       
+        if($arrayAlumno != null && $legajo != null){
+            $indice = Alumno::buscarAlumno($arrayAlumno,$legajo);
+
+            if(-1 < $indice){
+                unset($arrayAlumno[$indice]);
+                $retorno = $arrayAlumno;
+            }
+        }
+        return $retorno;
+    }
+    #endregion
 }
 
 ?>

@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "nombre": "John Doe",
+        "correo": "johndoe@example.com",
+        "clave": "contrase\u00f1a",
+        "id_perfil": 2,
+        "perfil": "Perfil"
+    },
+    {
+        "id": 2,
+        "nombre": "Santiago Leonardi",
+        "correo": "Santiago.t.leonardi@gmail.com",
+        "clave": "42640255",
+        "id_perfil": 3,
+        "perfil": "admin"
+    }
+]

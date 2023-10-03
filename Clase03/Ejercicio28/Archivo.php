@@ -2,7 +2,7 @@
 
 class Archivo
 {
-    static public function guardar(string $texto, string $path)
+    static public function guardar2(string $texto, string $path)
     {
         $retorno = true;
         if($texto != null && $path != null)
