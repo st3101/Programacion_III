@@ -5,7 +5,7 @@
         "correo": "johndoe@example.com",
         "clave": "contrase\u00f1a",
         "id_perfil": 2,
-        "perfil": "Perfil"
+        "perfil": "usuario"
     },
     {
         "id": 2,

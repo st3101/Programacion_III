@@ -26,7 +26,7 @@ Usuario::MostrarArrayUsuario($usuarios);
 #region Guardar PDO
 /*
 $conexion = Conexion::UnaConexion();
-$usuario = new Usuario(2, 'Santiago Leonardi', 'Santiago.t.leonardi@gmail.com', '42640255', 3, 'admin');
+$usuario = new Usuario(2, 'Alan Baez', 'alin@gmail.com', '123456789', 2, 'usuario');
 $exito = $usuario->Agregar($conexion);
 
 if ($exito) {
@@ -38,10 +38,27 @@ if ($exito) {
 #endregion
 
 #region Cargar PDO
+/*
 $conexion = Conexion::UnaConexion();
 $usuarios = Usuario::TraerTodos($conexion);
 Usuario::MostrarArrayUsuario($usuarios);
-echo "HOLA?";
+*/
+#endregion
+
+#region TrerUno
+/*
+// Parámetros con correo y clave
+$conexion = Conexion::UnaConexion();
+
+// Obtener un usuario por correo y clave
+$usuario = Usuario::TraerUno($conexion, "alin@gmail.com",123456789);
+if($usuario != null){
+    echo $usuario->MostraUnUsuario();
+}
+else{
+    echo "No lo encontro";
+}
+*/
 #endregion
 
 ?>

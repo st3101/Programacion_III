@@ -19,9 +19,11 @@ switch($opciones)
            $pdo = new PDO("mysql:host=localhost;dbname=mi_base","root","");
            $sql = $pdo->query("SELECT * from mi_tabla");
            if($sql != null){
-            while ($res = $sql->fetchObjet("mi_tabla")) {
+           
+           /* while ($res = $sql->fetchObjet("mi_tabla")) {
                echo $res->toString();
             }
+            */
            }
         } catch (PDOException $e) {
             echo $e->getMessage();

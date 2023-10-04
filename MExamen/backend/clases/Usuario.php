@@ -75,14 +75,15 @@ class Usuario {
         try {
             // Preparar la consulta SQL para insertar un nuevo usuario
             //$consulta = $conexion->prepare("INSERT usuarios INTO (nombre, correo, clave, id_perfil) VALUES (:nombre, :correo, :clave, :id_perfil)");
-            $consulta =  $conexion->prepare("INSERT INTO `usuarios`(`nombre`, `correo`, `clave`, `id_perfil`) VALUES  (:nombre, :correo, :clave, :id_perfil)");
+            $consulta =  $conexion->prepare("INSERT INTO `usuarios`(`nombre`, `correo`, `clave`, `id_perfil`, perfil) VALUES  (:nombre, :correo, :clave, :id_perfil, :perfil)");
 
             //Bind de los valores de los atributos a los marcadores de posición
             $consulta->bindParam(':nombre', $this->nombre);
             $consulta->bindParam(':correo', $this->correo);
             $consulta->bindParam(':clave', $this->clave);
             $consulta->bindParam(':id_perfil', $this->id_perfil);       
-
+            $consulta->bindParam(':perfil', $this->perfil);       
+            
             // Ejecutar la consulta SQL
             $exito = $consulta->execute();
 
@@ -130,47 +131,90 @@ class Usuario {
 
         return array(); // Retornar un array vacío si no se pudo recuperar ningún usuario
     }
-
+    public function MostraUnUsuario()
+    {
+        $retorno = "";
+            $retorno.= "ID: " . $this->id . "<br>";
+            $retorno.= "Nombre: " . $this->nombre . "<br>";
+            $retorno.= "Correo: " . $this->correo . "<br>";
+            $retorno.= "Clave: " . $this->clave . "<br>";
+            $retorno.= "ID de Perfil: " . $this->id_perfil . "<br>";
+            $retorno.= "Perfil: " . $this->perfil . "<br>";
+            $retorno.= "<br>";
+        return $retorno;
+    }
     public static function MostrarArrayUsuario($usuarios)
     {
+        $retorno = "";
         foreach ($usuarios as $item) {
-            echo "ID: " . $item->id . "<br>";
-            echo "Nombre: " . $item->nombre . "<br>";
-            echo "Correo: " . $item->correo . "<br>";
-            echo "Clave: " . $item->clave . "<br>";
-            echo "ID de Perfil: " . $item->id_perfil . "<br>";
-            echo "Perfil: " . $item->perfil . "<br>";
-            echo "<br>";
+            $retorno .= $item->MostraUnUsuario();
         }
+        return $retorno;
     }
 
     public static function TraerTodos(PDO $conexion) {
-    try {
-        // Preparar la consulta SQL para obtener usuarios con descripción de perfil
-        $consulta = $conexion->prepare("SELECT `id`, `nombre`, `correo`, `clave`, `id_perfil` FROM `usuarios` WHERE 3");
+        try {
+            // Preparar la consulta SQL para obtener usuarios con descripción de perfil
+            $consulta = $conexion->prepare("SELECT `id`, `nombre`, `correo`, `clave`, `id_perfil`, perfil FROM `usuarios` WHERE perfil = 'admin'");
 
-        // Ejecutar la consulta SQL
-        $consulta->execute();
+            // Ejecutar la consulta SQL
+            $consulta->execute();
 
-        // Obtener los resultados como objetos Usuario
-        $usuarios = array();
-        while ($fila = $consulta->fetch(PDO::FETCH_ASSOC)) {
-            $usuario = new Usuario(
-                $fila['id'],
-                $fila['nombre'],
-                $fila['correo'],
-                $fila['clave'],
-                $fila['id_perfil'],
-                "A"
-            );
-            $usuarios[] = $usuario;
+            // Obtener los resultados como objetos Usuario
+            $usuarios = array();
+            while ($fila = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                $usuario = new Usuario(
+                    $fila['id'],
+                    $fila['nombre'],
+                    $fila['correo'],
+                    $fila['clave'],
+                    $fila['id_perfil'],
+                    $fila['perfil']
+                );
+                $usuarios[] = $usuario;
+            }
+
+            return $usuarios;
+        } catch (PDOException $e) {
+            // Manejar cualquier excepción que pueda ocurrir durante la consulta
+            // Puedes agregar registro de errores o realizar cualquier otra acción necesaria aquí
+            echo $e->getMessage(); //Muestro el error
+            return array(); // Retornar un array vacío en caso de error
         }
-
-        return $usuarios;
-    } catch (PDOException $e) {
-        // Manejar cualquier excepción que pueda ocurrir durante la consulta
-        // Puedes agregar registro de errores o realizar cualquier otra acción necesaria aquí
-        return array(); // Retornar un array vacío en caso de error
     }
-}
+
+    public static function TraerUno(PDO $conexion, $correo, $clave) {
+        try {
+            // Preparar la consulta SQL para obtener un usuario por correo y clave
+            $consulta = $conexion->prepare("SELECT id, nombre, correo, clave, id_perfil, perfil
+                                           FROM usuarios 
+                                           WHERE correo = :correo AND clave = :clave");
+    
+            // Bind de los valores de los parámetros
+            $consulta->bindParam(':correo', $correo);
+            $consulta->bindParam(':clave', $clave);
+    
+            // Ejecutar la consulta SQL
+            $consulta->execute();
+    
+            // Obtener el resultado como objeto Usuario
+            if ($fila = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                $usuario = new Usuario(
+                    $fila['id'],
+                    $fila['nombre'],
+                    $fila['correo'],
+                    $fila['clave'],
+                    $fila['id_perfil'],
+                    $fila['perfil']
+                );
+                return $usuario;
+            } else {
+                return null; // No se encontró ningún usuario con el correo y clave proporcionados
+            }
+        } catch (PDOException $e) {
+            // Manejar cualquier excepción que pueda ocurrir durante la consulta
+            // Puedes agregar registro de errores o realizar cualquier otra acción necesaria aquí
+            return null; // Retornar null en caso de error
+        }
+    }
 }
