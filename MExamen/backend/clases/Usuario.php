@@ -155,7 +155,7 @@ class Usuario {
     public static function TraerTodos(PDO $conexion) {
         try {
             // Preparar la consulta SQL para obtener usuarios con descripción de perfil
-            $consulta = $conexion->prepare("SELECT `id`, `nombre`, `correo`, `clave`, `id_perfil`, perfil FROM `usuarios` WHERE perfil = 'admin'");
+            $consulta = $conexion->prepare("SELECT `id`, `nombre`, `correo`, `clave`, `id_perfil`, perfil FROM `usuarios`");
 
             // Ejecutar la consulta SQL
             $consulta->execute();
@@ -183,7 +183,7 @@ class Usuario {
         }
     }
 
-    public static function TraerUno(PDO $conexion, $correo, $clave) {
+    public static function TraerUno(PDO $conexion, $params) {
         try {
             // Preparar la consulta SQL para obtener un usuario por correo y clave
             $consulta = $conexion->prepare("SELECT id, nombre, correo, clave, id_perfil, perfil
@@ -191,8 +191,8 @@ class Usuario {
                                            WHERE correo = :correo AND clave = :clave");
     
             // Bind de los valores de los parámetros
-            $consulta->bindParam(':correo', $correo);
-            $consulta->bindParam(':clave', $clave);
+            $consulta->bindParam(':correo', $params["correo"]);
+            $consulta->bindParam(':clave', $params["clave"]);
     
             // Ejecutar la consulta SQL
             $consulta->execute();

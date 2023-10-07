@@ -14,5 +14,21 @@
         "clave": "42640255",
         "id_perfil": 3,
         "perfil": "admin"
+    },
+    {
+        "id": 3,
+        "nombre": "Tomito",
+        "correo": "test",
+        "clave": "soyunaconstrase\u00f1a",
+        "id_perfil": 1,
+        "perfil": "usuario"
+    },
+    {
+        "id": null,
+        "nombre": "Tomito",
+        "correo": "test",
+        "clave": "soyunaconstrase\u00f1a",
+        "id_perfil": null,
+        "perfil": null
     }
 ]

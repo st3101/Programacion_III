@@ -1,5 +1,5 @@
 <?php
-$PATH_USUARIOS = './backend/archivos/usuarios.json';
+const PATH_USUARIOS = './backend/archivos/usuarios.json';
 
 require_once './backend/clases/Usuario.php';
 require_once './backend/clases/Conexion.php';
@@ -23,7 +23,7 @@ Usuario::MostrarArrayUsuario($usuarios);
 */
 #endregion
 
-#region Guardar PDO
+#region Guardar MySQL
 /*
 $conexion = Conexion::UnaConexion();
 $usuario = new Usuario(2, 'Alan Baez', 'alin@gmail.com', '123456789', 2, 'usuario');
@@ -37,7 +37,7 @@ if ($exito) {
 */
 #endregion
 
-#region Cargar PDO
+#region Cargar MySQL
 /*
 $conexion = Conexion::UnaConexion();
 $usuarios = Usuario::TraerTodos($conexion);
@@ -45,13 +45,13 @@ Usuario::MostrarArrayUsuario($usuarios);
 */
 #endregion
 
-#region TrerUno
+#region TrerUno MySQL
 /*
-// Parámetros con correo y clave
 $conexion = Conexion::UnaConexion();
-
+// Parámetros con correo y clave
+$params = array("correo" => "Santiago.t.leonardi@gmail.com","clave" => 42640255);
 // Obtener un usuario por correo y clave
-$usuario = Usuario::TraerUno($conexion, "alin@gmail.com",123456789);
+$usuario = Usuario::TraerUno($conexion,$params);
 if($usuario != null){
     echo $usuario->MostraUnUsuario();
 }
@@ -61,4 +61,5 @@ else{
 */
 #endregion
 
+#region 
 ?>
