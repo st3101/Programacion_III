@@ -4,7 +4,6 @@ ListadoUsuarios.php: (GET) Se mostrará el listado completo de los usuarios, exe
 base de datos) en una tabla (HTML con cabecera). Invocar al método TraerTodos.
 */
 
-
 // Incluye la definición de la clase Usuario
 require_once('./clases/Usuario.php'); // Ajusta la ruta según la estructura de tu proyecto
 require_once("./clases/Conexion.php");

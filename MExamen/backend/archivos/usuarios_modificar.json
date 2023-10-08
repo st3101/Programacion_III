@@ -1,0 +1,10 @@
+{
+  "id": 9,
+  "nombre": "John Doe",
+  "correo": "johndoe@example.com",
+  "clave": "contraseña",
+  "id_perfil": 2,
+  "perfil": "usuario"
+}
+
+  

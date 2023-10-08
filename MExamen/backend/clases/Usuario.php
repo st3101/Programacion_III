@@ -1,7 +1,6 @@
 <?php
 
-class Usuario {
-    // Atributos públicos
+class Usuario implements IBM{
     public $id;
     public $nombre;
     public $correo;
@@ -9,7 +8,6 @@ class Usuario {
     public $id_perfil;
     public $perfil;
 
-    // Constructor
     public function __construct($id, $nombre, $correo, $clave, $id_perfil, $perfil) {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -19,8 +17,8 @@ class Usuario {
         $this->perfil = $perfil;
     }
 
-    // Método para convertir los datos en formato JSON
     public function ToJSON() {
+        // Método para convertir los datos en formato JSON
         $usuarioArray = array(
             "nombre" => $this->nombre,
             "correo" => $this->correo,
@@ -93,8 +91,6 @@ class Usuario {
             return false;
         }
     }
-
-    // Dentro de la clase Usuario
 
     public static function TraerTodosJSON() {
         $rutaArchivo = './backend/archivos/usuarios.json';
@@ -216,5 +212,43 @@ class Usuario {
             // Puedes agregar registro de errores o realizar cualquier otra acción necesaria aquí
             return null; // Retornar null en caso de error
         }
+    }
+
+    public function Modificar()
+    {
+
+            try {
+                $conexion = Conexion::UnaConexion();
+        
+                // Define la consulta SQL para actualizar el registro
+                $consulta = $conexion->prepare("UPDATE usuarios SET nombre = :nombre, correo = :correo, clave = :clave, id_perfil = :id_perfil WHERE id = :id");
+        
+                // Bind de los valores de los parámetros
+                $consulta->bindParam(':id', $this->id);
+                $consulta->bindParam(':nombre', $this->nombre);
+                $consulta->bindParam(':correo', $this->correo);
+                $consulta->bindParam(':clave', $this->clave);
+                $consulta->bindParam(':id_perfil', $this->id_perfil);
+        
+                // Ejecuta la consulta SQL
+                $consulta->execute();
+        
+                // Verifica si se realizó la modificación
+                if ($consulta->rowCount() > 0) {
+                    return true; // La modificación fue exitosa
+                } else {
+                    return false; // No se modificó ningún registro (id no encontrado)
+                }
+            } catch (PDOException $e) {
+                // Manejar cualquier excepción que pueda ocurrir durante la modificación
+                // Puedes agregar registro de errores o realizar cualquier otra acción necesaria aquí
+                return false; // Retornar false en caso de error
+            }
+        
+    }
+
+    public static function Eliminar($id)
+    {
+
     }
 }
