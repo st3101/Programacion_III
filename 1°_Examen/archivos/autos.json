@@ -1,0 +1,14 @@
+[
+    {
+        "patente": "hhh132",
+        "marca": "peugeot",
+        "color": "gris",
+        "precio": 4000
+    },
+    {
+        "patente": "yyy333",
+        "marca": "Honda",
+        "color": "Negro",
+        "precio": 5000
+    }
+]

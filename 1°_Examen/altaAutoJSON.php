@@ -1,0 +1,41 @@
+<?php
+
+// Verificamos si se enviaron datos por POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Incluimos la clase Auto
+    require_once './clases/auto.php';
+
+    // Obtener los datos enviados por POST
+    $patente = $_POST['patente'];
+    $marca = $_POST['marca'];
+    $color = $_POST['color'];
+    $precio = floatval($_POST['precio']);
+
+    // Crear una instancia de Auto
+    $auto = new \Leonardi\Santiago\Auto($patente, $marca, $color, $precio);
+
+    // Obtener el archivo JSON existente o crear uno nuevo si no existe
+    $archivoJSON = './archivos/autos.json';
+    $autos = [];
+
+    if (file_exists($archivoJSON)) {
+        $autos = json_decode(file_get_contents($archivoJSON), true);
+    }
+
+    // Agregar el auto a la lista
+    $autos[] = [
+        'patente' => $auto->getPatente(),
+        'marca' => $auto->getMarca(),
+        'color' => $auto->getColor(),
+        'precio' => $auto->getPrecio(),
+    ];
+
+    // Convertir la lista de autos a formato JSON y guardarla en el archivo
+    $jsonAutos = json_encode($autos, JSON_PRETTY_PRINT);
+    file_put_contents($archivoJSON, $jsonAutos);
+
+    echo "Auto agregado con éxito.";
+} else {
+    echo "Error: Se esperaba una solicitud POST.";
+}
+?>
