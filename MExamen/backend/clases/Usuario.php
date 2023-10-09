@@ -69,9 +69,9 @@ require_once ("IBM.php");
             ));
         }
     }
-    public function Agregar(PDO $conexion){
-
+    public function Agregar(){
         try {
+            $conexion = Conexion::UnaConexion();
             // Preparar la consulta SQL para insertar un nuevo usuario
             //$consulta = $conexion->prepare("INSERT usuarios INTO (nombre, correo, clave, id_perfil) VALUES (:nombre, :correo, :clave, :id_perfil)");
             $consulta =  $conexion->prepare("INSERT INTO `usuarios`(`nombre`, `correo`, `clave`, `id_perfil`, perfil) VALUES  (:nombre, :correo, :clave, :id_perfil, :perfil)");
