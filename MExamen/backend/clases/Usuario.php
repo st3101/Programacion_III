@@ -1,6 +1,8 @@
 <?php
 
-class Usuario implements IBM{
+//require_once('C:/xampp/htdocs/Programacion_III/practica/backend/clases/IBM.php');
+require_once ("IBM.php");
+ class Usuario implements IBM{
     public $id;
     public $nombre;
     public $correo;
@@ -8,7 +10,7 @@ class Usuario implements IBM{
     public $id_perfil;
     public $perfil;
 
-    public function __construct($id, $nombre, $correo, $clave, $id_perfil, $perfil) {
+    public function __construct($id, $nombre, $correo, $clave, $id_perfil, $perfil){
         $this->id = $id;
         $this->nombre = $nombre;
         $this->correo = $correo;
@@ -17,7 +19,7 @@ class Usuario implements IBM{
         $this->perfil = $perfil;
     }
 
-    public function ToJSON() {
+    public function ToJSON(){
         // Método para convertir los datos en formato JSON
         $usuarioArray = array(
             "nombre" => $this->nombre,
@@ -28,7 +30,7 @@ class Usuario implements IBM{
         return json_encode($usuarioArray);
     }
 
-    public function GuardarEnArchivo($rutaArchivo) {
+    public function GuardarEnArchivo($rutaArchivo){
         // Crear un arreglo con los datos del usuario
         $usuarioArray = array(
             'id' => $this->id,
@@ -67,8 +69,7 @@ class Usuario implements IBM{
             ));
         }
     }
-    
-    public function Agregar(PDO $conexion) {
+    public function Agregar(PDO $conexion){
 
         try {
             // Preparar la consulta SQL para insertar un nuevo usuario
@@ -92,7 +93,7 @@ class Usuario implements IBM{
         }
     }
 
-    public static function TraerTodosJSON() {
+    public static function TraerTodosJSON(){
         $rutaArchivo = './backend/archivos/usuarios.json';
 
         // Verificar si el archivo existe
@@ -127,8 +128,7 @@ class Usuario implements IBM{
 
         return array(); // Retornar un array vacío si no se pudo recuperar ningún usuario
     }
-    public function MostraUnUsuario()
-    {
+    public function MostraUnUsuario(){
         $retorno = "";
             $retorno.= "ID: " . $this->id . "<br>";
             $retorno.= "Nombre: " . $this->nombre . "<br>";
@@ -139,8 +139,7 @@ class Usuario implements IBM{
             $retorno.= "<br>";
         return $retorno;
     }
-    public static function MostrarArrayUsuario($usuarios)
-    {
+    public static function MostrarArrayUsuario($usuarios){
         $retorno = "";
         foreach ($usuarios as $item) {
             $retorno .= $item->MostraUnUsuario();
@@ -214,9 +213,7 @@ class Usuario implements IBM{
         }
     }
 
-    public function Modificar()
-    {
-
+    public function Modificar(){
             try {
                 $conexion = Conexion::UnaConexion();
         
@@ -247,8 +244,32 @@ class Usuario implements IBM{
         
     }
 
-    public static function Eliminar($id)
-    {
+    public static function Eliminar($id) {
+        // Implementación del método Eliminar de la interfaz IBM
+            try {
+                // Conecta a la base de datos (ajusta los datos de conexión según tu configuración)
+                $conexion = Conexion::UnaConexion();
 
+                // Define la consulta SQL para eliminar el registro por ID
+                $consulta = $conexion->prepare("DELETE FROM usuarios WHERE id = :id");
+
+                // Bind del valor del parámetro ID
+                $consulta->bindParam(':id', $id);
+
+                // Ejecuta la consulta SQL
+                $consulta->execute();
+
+                // Verifica si se realizó la eliminación
+                if ($consulta->rowCount() > 0) {
+                    return true; // La eliminación fue exitosa
+                } else {
+                    return false; // No se eliminó ningún registro (id no encontrado)
+                }
+            } catch (PDOException $e) {
+                // Manejar cualquier excepción que pueda ocurrir durante la eliminación
+                // Puedes agregar registro de errores o realizar cualquier otra acción necesaria aquí
+                return false; // Retornar false en caso de error
+            } 
     }
 }
+?>

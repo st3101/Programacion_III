@@ -1,9 +1,8 @@
 <?php
-const PATH_USUARIOS = './backend/archivos/usuarios.json';
-
-require_once './backend/clases/Usuario.php';
-require_once './backend/clases/Conexion.php';
-
+const PATH_USUARIOS = '../backend/archivos/usuarios.json';
+require_once "../backend/clases/Usuario.php";
+require_once "../backend/clases/Empleado.php";
+require_once "../backend/clases/Conexion.php";
 #region Guardar Json
 /*
 // Crear una instancia de Usuario
@@ -12,7 +11,7 @@ $usuario = new Usuario(2, 'Santiago Leonardi', 'Santiago.t.leonardi@gmail.com', 
 // Llamar al método ToJSON() para obtener los datos en formato JSON
 $jsonData = $usuario->ToJSON();
 
-$resultado = $usuario->GuardarEnArchivo($PATH_USUARIOS);
+$resultado = $usuario->GuardarEnArchivo(PATH_USUARIOS);
 */
 #endregion
 
@@ -61,5 +60,49 @@ else{
 */
 #endregion
 
-#region 
+
+/*
+var_dump(Empleado::TraerTodos(Conexion::UnaConexion()));
+*/
+$usuarios = Empleado::TraerTodos(Conexion::UnaConexion());
+//$usuario = new Empleado(1,"a","b",2,3,"a","../backend/empleado/fotos/juana.024247.jpg",4);
+
+
 ?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado de Usuarios</title>
+</head>
+<body>
+    <h1>Listado de Usuarios</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>ID de Perfil</th>
+                <th>Foto</th>
+                <th>Sueldo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($usuarios as $usuario): ?>
+                <tr>
+                    <td><?php echo $usuario->id; ?></td>
+                    <td><?php echo $usuario->nombre; ?></td>
+                    <td><?php echo $usuario->correo; ?></td>
+                    <td><?php echo $usuario->id_perfil; ?> 
+                    <td> <img src="<?php echo ".".$usuario->foto; ?>" width="200" height="150"></td>                                 
+                    <td><?php echo $usuario->sueldo; ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <?php ?>
+        </tbody>
+    </table>
+</body>
+</html>
+

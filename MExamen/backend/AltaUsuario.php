@@ -12,7 +12,7 @@ $correo = $_POST["correo"];
 $clave = $_POST["clave"];
 $id_perfil = $_POST["idPefil"];
 
-$usuario = new Usuario(null,$nombre,$correo,$clave,$id_perfil,null);
+$usuario = new Usuario(null,$nombre,$correo,$clave,$id_perfil, null);
 
 $conexion = Conexion::UnaConexion();
 

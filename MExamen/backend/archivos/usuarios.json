@@ -1,11 +1,11 @@
 [
     {
-        "id": 1,
-        "nombre": "John Doe",
-        "correo": "johndoe@example.com",
-        "clave": "contrase\u00f1a",
-        "id_perfil": 2,
-        "perfil": "usuario"
+        "id": 2,
+        "nombre": "Santiago Leonardi",
+        "correo": "Santiago.t.leonardi@gmail.com",
+        "clave": "42640255",
+        "id_perfil": 3,
+        "perfil": "admin"
     },
     {
         "id": 2,
@@ -16,19 +16,11 @@
         "perfil": "admin"
     },
     {
-        "id": 3,
-        "nombre": "Tomito",
-        "correo": "test",
-        "clave": "soyunaconstrase\u00f1a",
-        "id_perfil": 1,
-        "perfil": "usuario"
-    },
-    {
-        "id": null,
-        "nombre": "Tomito",
-        "correo": "test",
-        "clave": "soyunaconstrase\u00f1a",
-        "id_perfil": null,
-        "perfil": null
+        "id": 2,
+        "nombre": "Santiago Leonardi",
+        "correo": "Santiago.t.leonardi@gmail.com",
+        "clave": "42640255",
+        "id_perfil": 3,
+        "perfil": "admin"
     }
 ]
