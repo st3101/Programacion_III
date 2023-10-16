@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $patente = $_POST['patente'];
     $marca = $_POST['marca'];
     $color = $_POST['color'];
-    $precio = floatval($_POST['precio']);
+    $precio = $_POST['precio'];
 
-    // Crear una instancia de Auto
+    //Crear una instancia de Auto
     $auto = new \Leonardi\Santiago\Auto($patente, $marca, $color, $precio);
 
     // Obtener el archivo JSON existente o crear uno nuevo si no existe
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $jsonAutos = json_encode($autos, JSON_PRETTY_PRINT);
     file_put_contents($archivoJSON, $jsonAutos);
 
-    echo "Auto agregado con éxito.";
+    echO $jsonAutos;
 } else {
     echo "Error: Se esperaba una solicitud POST.";
 }

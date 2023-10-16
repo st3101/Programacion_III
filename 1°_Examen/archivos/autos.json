@@ -1,14 +1,14 @@
 [
     {
         "patente": "hhh132",
-        "marca": "peugeot",
-        "color": "gris",
-        "precio": 4000
+        "marca": "fiat",
+        "color": "rojo",
+        "precio": "100"
     },
     {
-        "patente": "yyy333",
-        "marca": "Honda",
-        "color": "Negro",
-        "precio": 5000
+        "patente": "yyy999",
+        "marca": "peugeot",
+        "color": "Gris",
+        "precio": "300"
     }
 ]
