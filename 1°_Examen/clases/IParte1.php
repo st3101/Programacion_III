@@ -1,6 +1,6 @@
 <?php
 
-//namespace Leonardi\Santiago;
+namespace Leonardi\Santiago;
 
 interface IParte1
 {

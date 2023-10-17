@@ -1,16 +1,15 @@
 <?php
 
+namespace Leonardi\Santiago;
 // Incluimos la clase AutoBD
-require_once './clases/autoBD.php';
+require_once 'clases/autoBD.php';
 
-require_once "./clases/auto.php";
+require_once "clases/auto.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $autos = AutoBD::traer();
-
-    var_dump($autos);
-    /*
+    
     // Verificar si se obtuvieron autos
     if ($autos !== false) {
         // Crear una tabla HTML para mostrar los autos
@@ -32,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo '<td>' . $auto->getMarca() . '</td>';
             echo '<td>' . $auto->getColor() . '</td>';
             echo '<td>' . $auto->getPrecio() . '</td>';
-            echo '<td>' . $auto->getPathFoto() . '</td>';
-            echo '</tr>';
+            echo '<td> <img src= ' . $auto->getPathFoto().'>'.'</td>';
         }
 
         echo '</tbody>';
@@ -44,6 +42,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } else {
     echo 'Se esperaba una solicitud GET.';
-}
-*/
 }

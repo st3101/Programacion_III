@@ -1,9 +1,11 @@
 <?php
 
+namespace Leonardi\Santiago;
+require_once './clases/auto.php';
+
 // Verificamos si se enviaron datos por POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Incluimos la clase Auto
-    require_once './clases/auto.php';
 
     // Obtener los datos enviados por POST
     $patente = $_POST['patente'];

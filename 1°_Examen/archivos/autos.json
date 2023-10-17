@@ -10,5 +10,29 @@
         "marca": "peugeot",
         "color": "Gris",
         "precio": "300"
+    },
+    {
+        "patente": "zzz999",
+        "marca": "fiat",
+        "color": "panter",
+        "precio": "111"
+    },
+    {
+        "patente": "aaa111",
+        "marca": "honda",
+        "color": "fris",
+        "precio": "222"
+    },
+    {
+        "patente": "AYF714",
+        "marca": "peugeot",
+        "color": "gris",
+        "precio": "4000"
+    },
+    {
+        "patente": "fff555",
+        "marca": "peugeot",
+        "color": "blanco",
+        "precio": "555"
     }
 ]

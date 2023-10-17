@@ -1,5 +1,5 @@
 <?php
-//namespace Leonardi\Santiago;
+namespace Leonardi\Santiago;
 
 include_once "auto.php";
 include_once "IParte1.php";
@@ -82,14 +82,12 @@ class AutoBD extends Auto implements IParte1
 
             // Obtener los resultados como objetos Usuario
             $autos = array();
-
-            $autoBD = new AutoBD("a","b","c","d","e");
             
-            while($fila = $consulta->fetch(\PDO::FETCH_ASSOC))
+            while($fila = $consulta->fetch())
             {
-                $autoBD = new AutoBD($fila['patente'], $fila['marca'], $fila['marca'], $fila['color'], $fila['foto']);
+                $autoBD = new AutoBD($fila['patente'], $fila['marca'], $fila['color'], $fila['precio'], $fila['foto']);
+                $autos[] = $autoBD;     
             }       
-            $autos[] = $autoBD;     
 
             return $autos;
         } catch (\PDOException $e) {

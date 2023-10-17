@@ -1,5 +1,7 @@
 <?php
 
+namespace Leonardi\Santiago;
+
 // Incluimos la clase Auto
 require_once './clases/auto.php';
 
