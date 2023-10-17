@@ -1,20 +1,18 @@
 <?php
 
-namespace Leonardi\Santiago;
-//require_once './clases/autoBD.php';
-require_once ("./autoDB.php");
+include_once "clases/autoBD.php";
+include_once "clases/IParte1.php"; 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $file = $_FILES['auto_json'];
+    $file = $_FILES['auto_json']["tmp_name"];
 
-    $path_origen = $file["tmp_name"];
-
-    $contenidoArchivo = file_get_contents($path_origen);
+    $contenidoArchivo = file_get_contents($file);
 
     $autoData = json_decode($contenidoArchivo, true);
 
-    var_dump($autoData);
-
+    
     if ($autoData === null) {
         // Si no se pudo decodificar el JSON correctamente, retornar un mensaje de error
         $response = [
@@ -23,17 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
     } else {
         // Crear una instancia de AutoBD con los datos del JSON
+
+
         $auto = new AutoBD(
             $autoData['patente'],
             $autoData['marca'],
             $autoData['color'],
             $autoData['precio'],
-            $autoData['pathFoto']
+            null
         );
+        
 
         // Intentar eliminar el auto
-        //$exito = $auto->eliminar();
-        $exito = true;
+        $exito = $auto->eliminar();
         if ($exito) {
             $mensaje = 'Auto eliminado y registrado en autos_eliminados.json';
         } else {

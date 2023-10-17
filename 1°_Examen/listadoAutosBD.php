@@ -3,11 +3,14 @@
 // Incluimos la clase AutoBD
 require_once './clases/autoBD.php';
 
+require_once "./clases/auto.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    $autos = \Leonardi\Santiago\AutoBD::traer();
+    $autos = AutoBD::traer();
 
+    var_dump($autos);
+    /*
     // Verificar si se obtuvieron autos
     if ($autos !== false) {
         // Crear una tabla HTML para mostrar los autos
@@ -41,4 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } else {
     echo 'Se esperaba una solicitud GET.';
+}
+*/
 }

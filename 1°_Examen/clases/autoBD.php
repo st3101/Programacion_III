@@ -1,6 +1,8 @@
 <?php
+//namespace Leonardi\Santiago;
 
-namespace Leonardi\Santiago;
+include_once "auto.php";
+include_once "IParte1.php";
 
 class AutoBD extends Auto implements IParte1
 {
@@ -21,10 +23,9 @@ class AutoBD extends Auto implements IParte1
     {
         $this->pathFoto = $pathFoto;
     }
-
     public static function ConexionSql()
     {
-        return new PDO("mysql:host=localhost;dbname=garage_bd","root","");
+        return new \PDO("mysql:host=localhost;dbname=garage_bd","root","");
     }
     public function toJSON()
     {
@@ -39,7 +40,7 @@ class AutoBD extends Auto implements IParte1
         return json_encode($data);
     }
 
-    public static function Agregar(){
+    public function Agregar(){
         try {
             $patente = $this->getPatente();
             $marca = $this->getMarca();
@@ -62,7 +63,7 @@ class AutoBD extends Auto implements IParte1
             $exito = $consulta->execute();
 
             return $exito;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e->getMessage();
             return false;
         }
@@ -72,6 +73,7 @@ class AutoBD extends Auto implements IParte1
     public static function traer()
     {
         try {
+            $conexion = AutoBD::ConexionSql();
             // Preparar la consulta SQL para obtener usuarios con descripción de perfil
             $consulta = $conexion->prepare("SELECT `patente`, `marca`, `color`, `precio`, `foto` FROM `autos`");
 
@@ -80,23 +82,34 @@ class AutoBD extends Auto implements IParte1
 
             // Obtener los resultados como objetos Usuario
             $autos = array();
-            while ($fila = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                $auto = new AutosBD(
-                    $fila['patente'],
-                    $fila['marca'],
-                    $fila['color'],
-                    $fila['precio'],
-                    $fila['foto'],
-                );
-                $autos[] = $auto;
-            }
+
+            $autoBD = new AutoBD("a","b","c","d","e");
+            
+            while($fila = $consulta->fetch(\PDO::FETCH_ASSOC))
+            {
+                $autoBD = new AutoBD($fila['patente'], $fila['marca'], $fila['marca'], $fila['color'], $fila['foto']);
+            }       
+            $autos[] = $autoBD;     
 
             return $autos;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             // Manejar cualquier excepción que pueda ocurrir durante la consulta
             // Puedes agregar registro de errores o realizar cualquier otra acción necesaria aquí
             echo $e->getMessage(); //Muestro el error
             return array(); // Retornar un array vacío en caso de error
         }
+    }
+
+    public function eliminar()
+    {
+        $conexion = AutoBD::ConexionSql();
+
+        $consulta = $conexion->prepare("DELETE FROM autos WHERE patente = :patente");
+
+        $patente = $this->getPatente();
+
+        $consulta->bindParam(":patente",$patente);
+        
+        return $consulta->execute();
     }
 }

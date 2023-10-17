@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $precio = $_POST['precio'];
 
     //Crear una instancia de Auto
-    $auto = new \Leonardi\Santiago\Auto($patente, $marca, $color, $precio);
+    $auto = new Auto($patente, $marca, $color, $precio);
 
     // Obtener el archivo JSON existente o crear uno nuevo si no existe
     $archivoJSON = './archivos/autos.json';
