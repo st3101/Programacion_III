@@ -31,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo '<td>' . $auto->getMarca() . '</td>';
             echo '<td>' . $auto->getColor() . '</td>';
             echo '<td>' . $auto->getPrecio() . '</td>';
-            echo '<td> <img src= ' . $auto->getPathFoto().'>'.'</td>';
+            echo '<td> <img src="' . $auto->getPathFoto() . '" alt="Foto" width="75" height="75"></td></tr>';
+
         }
 
         echo '</tbody>';
