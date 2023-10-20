@@ -34,7 +34,7 @@ class AutoBD extends Auto implements IParte1
             'marca' => $this->getMarca(),
             'color' => $this->getColor(),
             'precio' => $this->getPrecio(),
-            'pathFoto' => $this->getPathFoto(),
+            'pathFoto' => $this->getPathFoto()
         ];
 
         return json_encode($data);

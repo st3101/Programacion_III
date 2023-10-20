@@ -34,5 +34,11 @@
         "marca": "peugeot",
         "color": "blanco",
         "precio": "555"
+    },
+    {
+        "patente": "AAA555",
+        "marca": "peugeot",
+        "color": "Rojo",
+        "precio": "666"
     }
 ]

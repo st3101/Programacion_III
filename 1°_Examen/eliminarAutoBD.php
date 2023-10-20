@@ -1,15 +1,18 @@
 <?php
 
+namespace Leonardi\Santiago;
+
 include_once "clases/autoBD.php";
 include_once "clases/IParte1.php"; 
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    //Trarmos el archivo
     $file = $_FILES['auto_json']["tmp_name"];
 
+    //obtenemos todo el contenido
     $contenidoArchivo = file_get_contents($file);
 
+    //lo decodificamos
     $autoData = json_decode($contenidoArchivo, true);
 
     
@@ -21,8 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
     } else {
         // Crear una instancia de AutoBD con los datos del JSON
-
-
         $auto = new AutoBD(
             $autoData['patente'],
             $autoData['marca'],

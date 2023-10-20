@@ -4,7 +4,7 @@ namespace Leonardi\Santiago;
 
 class Auto
 {
-    
+
     protected $patente;
     protected $marca;
     protected $color;
@@ -82,7 +82,7 @@ class Auto
         );
     }
     
-    public function GuardarEnArchivo($rutaArchivo){
+    public function guardarJSON($rutaArchivo){
         // Crear un arreglo con los datos del usuario
         $array = array(
             "patente" => $this->patente,
@@ -90,7 +90,7 @@ class Auto
             "color" => $this->color,
             "precio" => $this->precio
         );
-    
+        
         // Leer el contenido actual del archivo JSON
         $usuariosExistente = [];
         if (file_exists($rutaArchivo)) {

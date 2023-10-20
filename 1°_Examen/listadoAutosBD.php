@@ -3,7 +3,6 @@
 namespace Leonardi\Santiago;
 // Incluimos la clase AutoBD
 require_once 'clases/autoBD.php';
-
 require_once "clases/auto.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

@@ -16,14 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Crear una instancia de Auto
     $auto = new Auto($patente, $marca, $color, $precio);
 
-    // Obtener el archivo JSON existente o crear uno nuevo si no existe
     $archivoJSON = './archivos/autos.json';
+    /*
+    // Obtener el archivo JSON existente o crear uno nuevo si no existe
     $autos = [];
 
     if (file_exists($archivoJSON)) {
         $autos = json_decode(file_get_contents($archivoJSON), true);
     }
-
     // Agregar el auto a la lista
     $autos[] = [
         'patente' => $auto->getPatente(),
@@ -31,12 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'color' => $auto->getColor(),
         'precio' => $auto->getPrecio(),
     ];
-
     // Convertir la lista de autos a formato JSON y guardarla en el archivo
     $jsonAutos = json_encode($autos, JSON_PRETTY_PRINT);
+    $autos
     file_put_contents($archivoJSON, $jsonAutos);
-
-    echO $jsonAutos;
+    */
+    
+    echO $auto->guardarJSON($archivoJSON);
 } else {
     echo "Error: Se esperaba una solicitud POST.";
 }
