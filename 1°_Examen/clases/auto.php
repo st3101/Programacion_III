@@ -4,7 +4,6 @@ namespace Leonardi\Santiago;
 
 class Auto
 {
-
     protected $patente;
     protected $marca;
     protected $color;
@@ -125,29 +124,8 @@ class Auto
         if (file_exists($rutaArchivo)) {
             // Leer el contenido del archivo JSON
             $contenidoArchivo = file_get_contents($rutaArchivo);
-
-            // Decodificar el JSON en un array asociativo
-            $usuariosArray = json_decode($contenidoArchivo, true);
-
-            // Verificar si la decodificación fue exitosa
-            if ($usuariosArray !== null) {
-                $usuarios = array();
-
-                // Convertir los arrays asociativos en objetos Usuario
-                foreach ($usuariosArray as $usuarioData) {
-                    $usuario = new Auto(
-                        $usuarioData['patente'],
-                        $usuarioData['marca'],
-                        $usuarioData['color'],
-                        $usuarioData['precio'],
-                    );
-
-                    $usuarios[] = $usuario;
-                }
-
-                return $usuarios;
-            }
         }
+        return $contenidoArchivo;
     }
     public static function verificarAutoJSON($patente)
     {

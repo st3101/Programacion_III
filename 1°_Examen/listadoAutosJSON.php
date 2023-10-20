@@ -11,9 +11,11 @@ $archivoJSON = './archivos/autos.json';
 // Verificamos si el archivo JSON existe
 if (file_exists($archivoJSON)) {
 
-    $autos = file_get_contents($archivoJSON);
+    //$autos = file_get_contents($archivoJSON);
+    $autos = Auto::TraerJSON($archivoJSON);
 
-    echo $autos;
+    var_dump($autos);
+    //echo $autos;
 
 } else {
     // Si el archivo JSON no existe, devolver un mensaje de error en JSON

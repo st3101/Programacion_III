@@ -1,14 +1,13 @@
 <?php
 namespace Leonardi\Santiago;
 
-include_once "./clases/auto.php";
+include_once "clases/auto.php";
 
 // Verificamos si se recibió una patente por POST
 if (isset($_POST['patente'])) {
 
     // Obtener la patente enviada por POST
     $patente = $_POST['patente'];
-    // Crear una instancia de Auto
     
     // Llamar al método verificarAutoJSON para obtener el mensaje
     $mensaje = Auto::verificarAutoJSON($patente);

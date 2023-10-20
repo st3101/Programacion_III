@@ -11,7 +11,7 @@ class AutoBD extends Auto implements IParte1
     public function __construct($patente = '', $marca = '', $color = '', $precio = 0.0, $pathFoto = '')
     {
         parent::__construct($patente, $marca, $color, $precio);
-        $this->pathFoto = $pathFoto;
+        $this->setPathFoto($pathFoto);
     }
 
     public function getPathFoto()
@@ -62,7 +62,20 @@ class AutoBD extends Auto implements IParte1
             // Ejecutar la consulta SQL
             $exito = $consulta->execute();
 
-            return $exito;
+            if ($exito) {
+                $retorno = json_encode(array(
+                    'exito' => true,
+                    'mensaje' => 'guardado con éxito.'
+                ));
+            } else {
+                // Error al guardar el usuario
+                $retorno = json_encode(array(
+                    'exito' => false,
+                    'mensaje' => 'Error al guardar en el archivo.'
+                ));
+            }
+            return $retorno;
+        
         } catch (\PDOException $e) {
             echo $e->getMessage();
             return false;
