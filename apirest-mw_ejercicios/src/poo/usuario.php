@@ -40,14 +40,14 @@ class Usuario implements ISlimeable
         
 	
         }
-    //Convertir el array a formato JSON
-    $json_response = json_encode($info);
-    
-    //Retorno el estatus y el body
-    $newResponse = $response->withStatus(200, "OK");
-    $newResponse->getBody()->write($json_response);
-    
-	return $newResponse->withHeader('Content-Type', 'application/json');	
+        //Convertir el array a formato JSON
+        $json_response = json_encode($info);
+        
+        //Retorno el estatus y el body
+        $newResponse = $response->withStatus(200, "OK");
+        $newResponse->getBody()->write($json_response);
+        
+        return $newResponse->withHeader('Content-Type', 'application/json');	
 
     }
     function TraerUno(Request $request, Response $response, array $args): Response
@@ -72,14 +72,14 @@ class Usuario implements ISlimeable
         );
         }
 
-    //Convertir el array a formato JSON
-    $json_response = json_encode($info);
-    
-    //Retorno el estatus y el body
-    $newResponse = $response->withStatus(200, "OK"); $newResponse = $response->withStatus(200, "OK");
-    $newResponse->getBody()->write($json_response);
-    
-	return $newResponse->withHeader('Content-Type', 'application/json');	
+        //Convertir el array a formato JSON
+        $json_response = json_encode($info);
+        
+        //Retorno el estatus y el body
+        $newResponse = $response->withStatus(200, "OK"); $newResponse = $response->withStatus(200, "OK");
+        $newResponse->getBody()->write($json_response);
+        
+        return $newResponse->withHeader('Content-Type', 'application/json');	
     }
     function AgregarUno(Request $request, Response $response, array $args): Response
     {
@@ -251,6 +251,7 @@ class Usuario implements ISlimeable
         $consulta->execute();                           
         return $consulta->fetchObject("usuario");	
     }
+    
     public function traerTodoLosUsuarios()
     {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();

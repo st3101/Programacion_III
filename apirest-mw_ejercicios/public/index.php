@@ -136,8 +136,6 @@ $app->group('/json', function (RouteCollectorProxy $grupo) {
   $respuesta = new ResponseMW();
   $respuesta->getBody()->write(json_encode($retornoJson));
   return $respuesta->withHeader('Content-Type', 'application/json');
-  
-
 
 });
 
@@ -158,15 +156,14 @@ $app->group('/json', function (RouteCollectorProxy $grupo) {
 require_once __DIR__ . '/../src/poo/accesodatos.php';
 require_once __DIR__ . '/../src/poo/usuario.php';
 require_once __DIR__ . '/../src/poo/verificadora.php';
-
+/* 
 $app->group('/json_bd', function (RouteCollectorProxy $grupo) {
 
-  
   $grupo->post('/', \Usuario::class . ':TraerTodos')->add(\Verificadora::class . ":VerificarUsuario");  
   $grupo->get('/', \Usuario::class . ':TraerTodos');
-
+    
 });
-
+ */
 
 //*********************************************************************************************//
 //EJERCICIO 4:
@@ -182,26 +179,13 @@ $app->group('/json_bd', function (RouteCollectorProxy $grupo) {
 
 $app->group('/json_bd', function (RouteCollectorProxy $grupo) {
 
-  $grupo->post(function(Request $request, RequestHandler $handler): ResponseMW {
-      if ($request->getMethod() == "POST") {
-          $arrayData = $request->getParsedBody();
-          if (!isset($arrayData['OBJ_JSON'])) {
-              $response = new ResponseMW();
-              $response->getBody()->write(json_encode(["error" => "El parámetro 'OBJ_JSON' es obligatorio.", "code" => 403]));
-              return $response->withHeader('Content-Type', 'application/json')->withStatus(403);
-          }
-          if (!isset($arrayData['OBJ_JSON']['CORREO']) || !isset($arrayData['OBJ_JSON']['CLAVE'])) {
-              $response = new ResponseMW();
-              $response->getBody()->write(json_encode(["error" => "Los parámetros 'CORREO' y 'CLAVE' son obligatorios.", "code" => 403]));
-              return $response->withHeader('Content-Type', 'application/json')->withStatus(403);
-          }
-      }
-      return $handler->handle($request);
-  });
+  $grupo->post('/', \Usuario::class . ':TraerTodos')
+  ->add(\Verificadora::class . ":VerificarUsuario")
+  ->add(\Verificadora::class . ":VerificarNoVacioCorreoClave")
+  ->add(\Verificadora::class . ":VerificarEnviadoJson");  
 
-  // Resto de las rutas y verbos POST y GET dentro del grupo /json_bd
-
+  $grupo->get('/', \Usuario::class . ':TraerTodos');
+    
 });
-
 //CORRE LA APLICACIÓN.
 $app->run();
